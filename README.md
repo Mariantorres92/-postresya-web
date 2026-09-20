@@ -19,34 +19,52 @@ PostresYa permite a los clientes explorar un catálogo de postres, armar pedidos
 ## Arquitectura (capas)
 
 - **Capa de datos** (`src/app/lib/data.js`): datos semilla (productos, usuarios, pedidos).
-- **Capa de lógica/API** (`src/app/api/**`): rutas REST que validan y procesan la información (login, registro, productos, pedidos).
-- **Capa de UI** (`src/app/**/page.js`, `src/app/components`): páginas y componentes visuales, conectados a la API mediante Axios y al estado global mediante Context API (`AuthContext`).
+- **Capa de lógica** (`src/app/api/**`): rutas API REST que validan datos, calculan precios y aplican reglas de negocio.
+- **Capa de UI** (`src/app/**/page.js`, `components/`): páginas y componentes React que consumen la API mediante Axios.
 
-## Roles de usuario
+## Roles y permisos
 
 | Rol | Permisos |
 |---|---|
-| **Cliente** | Ver catálogo, hacer pedidos personalizados, ver el estado de sus propios pedidos. |
-| **Administradora** | Ver dashboard con estadísticas y gráfica, actualizar el estado de cualquier pedido. |
+| Cliente | Ver catálogo, registrarse/iniciar sesión, hacer pedidos, ver sus propios pedidos |
+| Admin | Ver dashboard con estadísticas, ver todos los pedidos, cambiar el estado de cualquier pedido |
 
-**Cuenta de administradora de prueba:** `admin@postresya.com` / `admin123`
+**Cuenta de administrador para pruebas:**
+- Correo: `admin@postresya.com`
+- Contraseña: `admin123`
 
-## Requerimientos funcionales implementados
+## Funcionalidades implementadas
 
-1. ✅ Módulo de autenticación (registro, login, rutas protegidas por rol)
-2. ✅ Módulo de gestión principal (creación y seguimiento de pedidos, actualización de estado)
-3. ✅ Procesamiento de lógica de negocio central (cálculo de precio dinámico por tamaño, validación de anticipación mínima de 2 días)
-4. ✅ Dashboard con vista resumen (total de pedidos, ingresos, gráfica por estado)
-5. ✅ Actualización dinámica de datos en ejecución (la lista de pedidos del cliente y del dashboard se refresca automáticamente cada 5 segundos)
+- [x] Autenticación con login y registro (Context API + localStorage)
+- [x] Rutas protegidas según rol (cliente / admin)
+- [x] API REST propia con validaciones (fecha mínima de entrega, campos obligatorios)
+- [x] Cálculo dinámico de precios según tamaño del producto
+- [x] Actualización dinámica de datos (auto-refresh cada 5 segundos)
+- [x] Dashboard con gráfica de pedidos por estado (Recharts)
+- [x] Diseño responsive con Tailwind CSS
 
 ## Cómo correr el proyecto localmente
 
-\`\`\`bash
+```bash
 npm install
 npm run dev
-\`\`\`
+```
 
-Abrir [http://localhost:3000](http://localhost:3000)
+Luego abre `http://localhost:3000` en tu navegador.
+
+## Capturas de pantalla
+
+### Catálogo de productos
+![Catálogo](screenshots/Catalogo.png)
+
+### Formulario de pedido
+![Pedido](screenshots/Pedido.png)
+
+### Mis pedidos (cliente)
+![Mis pedidos](screenshots/Mis-pedidos.png)
+
+### Dashboard (admin)
+![Dashboard](screenshots/Dashboard.png)
 
 ## Equipo
 
