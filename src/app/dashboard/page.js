@@ -48,6 +48,13 @@ export default function DashboardPage() {
     cargarPedidos();
   }
 
+  async function eliminarPedido(id) {
+    const confirmar = window.confirm("¿Seguro que quieres eliminar este pedido?");
+    if (!confirmar) return;
+    await axios.delete(`/api/pedidos/${id}`);
+    cargarPedidos();
+  }
+
   if (cargandoAuth || !usuario || usuario.rol !== "admin") return null;
 
   const totalPedidos = pedidos.length;
@@ -116,17 +123,25 @@ export default function DashboardPage() {
                     ${pedido.precioFinal.toFixed(2)}
                   </p>
                 </div>
-                <select
-                  value={pedido.estado}
-                  onChange={(e) => cambiarEstado(pedido.id, e.target.value)}
-                  className="border rounded-lg px-3 py-1"
-                >
-                  {Object.entries(nombresEstado).map(([clave, texto]) => (
-                    <option key={clave} value={clave}>
-                      {texto}
-                    </option>
-                  ))}
-                </select>
+                <div className="flex items-center gap-2">
+                  <select
+                    value={pedido.estado}
+                    onChange={(e) => cambiarEstado(pedido.id, e.target.value)}
+                    className="border rounded-lg px-3 py-1"
+                  >
+                    {Object.entries(nombresEstado).map(([clave, texto]) => (
+                      <option key={clave} value={clave}>
+                        {texto}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={() => eliminarPedido(pedido.id)}
+                    className="text-sm bg-red-100 text-red-700 hover:bg-red-200 rounded-lg px-3 py-1"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </div>
             ))}
           </div>
