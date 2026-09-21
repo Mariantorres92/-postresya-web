@@ -61,8 +61,7 @@ Luego abre `http://localhost:3000` en tu navegador.
 ![Pedido](screenshots/Pedido.png)
 
 ### Mis pedidos (cliente)
-![Mis pedidos](screenshots/Mis-pedidos.png)
-
+![Mis pedidos](screenshots/Mls-pedidos.png)
 ### Dashboard (admin)
 ![Dashboard](screenshots/Dashboard.png)
 
