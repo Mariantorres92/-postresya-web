@@ -66,6 +66,8 @@ Luego abre `http://localhost:3000` en tu navegador.
 ### Dashboard (admin)
 ![Dashboard](screenshots/Dashboard.png)
 
+Revision de documento y pruebas de proyecto - Alexander Rosales
+
 ## Equipo
 
 - Mariana Flores
