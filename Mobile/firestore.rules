@@ -1,0 +1,34 @@
+rules_version = '2';
+// Reglas de seguridad de PostresYa (pegar en Firebase > Firestore Database > Reglas)
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function logueado() { return request.auth != null; }
+    function esAdmin() {
+      return logueado() &&
+        get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == 'admin';
+    }
+
+    // Perfil de cada usuario. Nadie puede darse el rol de admin a sí mismo.
+    match /usuarios/{uid} {
+      allow read: if logueado() && (request.auth.uid == uid || esAdmin());
+      allow create: if logueado() && request.auth.uid == uid
+                    && request.resource.data.rol == 'cliente';
+      allow update: if esAdmin()
+                    || (logueado() && request.auth.uid == uid
+                        && request.resource.data.rol == resource.data.rol);
+      allow delete: if false;
+    }
+
+    // Pedidos: el cliente crea y ve los suyos; la administradora ve todos y cambia el estado.
+    match /pedidos/{id} {
+      allow read: if logueado() && (resource.data.clienteId == request.auth.uid || esAdmin());
+      allow create: if logueado()
+                    && request.resource.data.clienteId == request.auth.uid
+                    && request.resource.data.status == 'Pendiente'
+                    && request.resource.data.price is number
+                    && request.resource.data.price > 0;
+      allow update: if esAdmin();
+      allow delete: if false;
+    }
+  }
+}
