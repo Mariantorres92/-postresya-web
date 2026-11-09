@@ -1,3 +1,24 @@
+## 📌 Avance 2 – Foro de Discusión 2 (Firebase + React Native)
+
+**Integrantes:** Mariana Torres (FT253342) · Alexander Rosales (RR253094)
+**Docente:** Alexander Alberto Sigüenza · **Materia:** DPS941
+
+- 📄🎬 **Documento PDF y video de demostración (Google Drive):** [Abrir carpeta del Foro 2](https://drive.google.com/drive/folders/1_dD9676xXxQAMpJG_nxFzkfwnk0ONzUC?usp=drive_link)
+- 📱 **Código de la app móvil:** carpeta [`Mobile`](./Mobile) (React Native + Expo + Firebase)
+
+**Lo implementado en este avance:**
+- Autenticación con Firebase (correo/contraseña y Google)
+- Pedidos guardados en Cloud Firestore asociados al usuario autenticado (`clienteId`)
+- Historial de pedidos del cliente e historial de estados de cada pedido
+- Panel de administradora: estadísticas y cambio de estado en tiempo real
+- Reglas de seguridad de Firestore en modo producción ([`firestore.rules`](./Mobile/firestore.rules))
+- Credenciales en `.env` (no se sube); ver [`.env.example`](./Mobile/.env.example)
+
+**Cómo ejecutar:** `cd Mobile` → crear `.env` a partir de `.env.example` → `npm install` → `npx expo start`
+
+---
+
+
 # PostresYa 🍰
 
 Plataforma web para pedidos personalizados de repostería, inspirada en ISA CAKE SV.
